@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 import os
 from datetime import datetime
+import re
 
 # host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/contractor')
 # client = MongoClient(host=f'{host}?retryWrites=false')
@@ -15,9 +16,9 @@ items = db.items
 app = Flask(__name__)
 
 @app.route('/')
-def store_index():
+def store_index(items=items.find()):
     """Show all playlists."""
-    return render_template('store_index.html', items=items.find())
+    return render_template('store_index.html', items=items)
 
 @app.route('/items', methods=['POST'])
 def add_item():
@@ -30,6 +31,12 @@ def add_item():
     }
     item_id = items.insert_one(item).inserted_id
     return redirect(url_for('item', item_id=item_id))
+
+@app.route('/items_search')
+def items_search():
+    query = request.form.get('search-bar')
+    searched_items = list(items.find({"name": {'$regex': '.*On .*' }}))
+    return redirect(url_for('store_index', items=searched_items))
 
 @app.route('/items/new')
 def items_new():

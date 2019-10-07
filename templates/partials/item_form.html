@@ -5,6 +5,12 @@
             <label for='item_name'>Name</label><br>
             <input class='form-control' id='item_name' type='text' name='name' value='{{ item.name }}'/>
         </div>
+
+        <!--DISPLAY NAME-->
+        <div class='form-group'>
+            <label for='display_name'>Display name</label><br>
+            <input class='form-control' id='display_name' type='text' name='display_name' value='{{ item.display_name }}'/>
+        </div>
     
         <!-- DESCRIPTION -->
         <div class='form-group'>
@@ -21,6 +27,6 @@
         <!-- DESCRIPTION -->
         <div class='form-group'>
             <label for='item_images'>Images</label><br/>
-            <textarea class='form-control' id='item_images' name='images' rows='10' />{{ "\n".join(item_images) }}</textarea>
+            <textarea class='form-control' id='item_images' name='images' rows='10' />{{ "\n".join(item.images) }}</textarea>
         </div>
     </fieldset>

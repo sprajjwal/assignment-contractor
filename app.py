@@ -16,42 +16,72 @@ items = db.items
 app = Flask(__name__)
 
 @app.route('/')
-def store_index(items=items.find()):
-    """Show all playlists."""
-    return render_template('store_index.html', items=items)
+def items_index():
+    """Show all items."""
+    return render_template('store_index.html', items=items.find())
 
 @app.route('/items', methods=['POST'])
 def add_item():
-    """Create and add a new item to the database"""
+    """Create and add a new item to the database."""
     item = {
-        'name': request.form.get('name'),
+        'name': request.form.get('name').lower(),
+        'display_name': request.form.get('display_name'),
         'price': request.form.get('price'),
         'in_stock': request.form.get('in'),
         'images': request.form.get('images').split()
     }
+    print(item['name'])
     item_id = items.insert_one(item).inserted_id
     return redirect(url_for('item', item_id=item_id))
 
 @app.route('/items_search')
 def items_search():
-    query = request.form.get('search-bar')
-    searched_items = list(items.find({"name": {'$regex': '.*On .*' }}))
-    return redirect(url_for('store_index', items=searched_items))
+    """ Logic for searchbar """
+    query = request.args.get('searchbar')
+    searched_items = items.find({"name": {'$regex': ".*"+ query.lower() +".*" }})
+    return render_template('items_search.html', items=searched_items)
+    # return redirect(url_for('store_index', items=searched_items))
 
 @app.route('/items/new')
 def items_new():
+    """ Form to make a new item for the store """
     return render_template('items_new.html', item={}, title='New Item')
-
-@app.route('/items')
-def store_items():
-    return render_template('items.html', items=items.find())
 
 @app.route('/items/<item_id>')
 def item(item_id):
+    """ Displays a single item """
     item = items.find_one({'_id': ObjectId(item_id)})
     return render_template('item.html', item=item)
 
+@app.route('/items/<item_id>', methods=["POST"])
+def item_update(item_id):
+    """ Update item """
+    updated_item = {
+        'name': request.form.get('name').lower(),
+        'display_name': request.form.get('display_name'),
+        'price': request.form.get('price'),
+        'in_stock': request.form.get('in'),
+        'images': request.form.get('images').split()
+    }
+    items.update_one(
+        {"_id" : ObjectId(item_id)},
+        {'$set' : updated_item}
+    )
+    return redirect(url_for('item', item_id=item_id))
+
+@app.route('/items/<item_id>/edit')
+def playlists_edit(item_id):
+    """Show the edit form for an item."""
+    item = items.find_one({'_id': ObjectId(item_id)})
+    return render_template('item_edit.html', item=item, title='Edit Item')
+
+
+@app.route('/items/<item_id>/delete', methods=['POST'])
+def items_delete(item_id):
+    """Delete one playlist."""
+    items.delete_one({'_id': ObjectId(item_id)})
+    return redirect(url_for('items_index'))
+
 if __name__ == '__main__':
-    # playlists.delete_many({})
-    # comments.delete_many({})
+    # items.delete_many({})
     app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row">
     <div class="col-sm-6 col-offset-3">
-        <h1> {{ item.name }}</h1>
+        <h1> {{ item.display_name }}</h1>
         {% for img in item.images %}
             <div class="card"><div class="card-body">
                 <img width="400" height="400" src="{{ img }}">

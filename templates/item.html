@@ -1,0 +1,21 @@
+{% extends base.html %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-6 col-offset-3">
+        <h1> {{ item.name }}</h1>
+        {% for img in item.images %}
+            <div class="card"><div class="card-body">
+                <img width="400" height="400" src="{{ img }}">
+            </div></div>
+        {% endfor %}
+        <h3> Price: {{ item.price }}</h3>
+        <h3> In stock: {{ item.in_stock }}</h3>
+        <p><a href='/items/{{ item._id }}/edit'>Edit</a></p>
+        <p><form method='POST' action='/items/{{ item._id }}/delete'>
+            <input type='hidden' name='_method' value='DELETE'>
+            <button class='btn btn-primary' type='submit'>Delete</button>
+    </div>
+</div>
+
+{% endblock %}

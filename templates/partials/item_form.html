@@ -1,0 +1,26 @@
+<fieldset>
+        <legend>Edit Item</legend>
+        <!-- TITLE -->
+        <div class='form-group'>
+            <label for='item_name'>Name</label><br>
+            <input class='form-control' id='item_name' type='text' name='name' value='{{ item.name }}'/>
+        </div>
+    
+        <!-- DESCRIPTION -->
+        <div class='form-group'>
+            <label for='price'>Price</label><br>
+            <input class='form-control' id='price' type='text' name='price' value='{{ item.price }}' />
+        </div>
+
+        <!--IN STOCK-->
+        <div class='form-group'>
+            <label for='in_stock'>In stock</label><br>
+            <input class='form-control' id='in_stock' type='text' name='in_stock' value='{{ item.in_stock }}' />
+        </div>
+    
+        <!-- DESCRIPTION -->
+        <div class='form-group'>
+            <label for='item_images'>Videos</label><br/>
+            <textarea class='form-control' id='item_images' name='images' rows='10' />{{ "\n".join(item_images) }}</textarea>
+        </div>
+    </fieldset>

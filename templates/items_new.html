@@ -1,0 +1,20 @@
+{% extends base.html %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+        <form method="POST" action="/items">
+            {% include 'partials/item_form.html' %}
+
+            <!-- Button -->
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Save Item</button>
+                <a href="/"><button class="btn btn-primary" type="button">Cancel</button></a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

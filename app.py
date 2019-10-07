@@ -5,11 +5,11 @@ import os
 from datetime import datetime
 import re
 
-# host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/contractor')
-# client = MongoClient(host=f'{host}?retryWrites=false')
-# db = client.get_default_database()
-client = MongoClient()
-db = client.contractor
+host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/contractor')
+client = MongoClient(host=f'{host}?retryWrites=false')
+db = client.get_default_database()
+# client = MongoClient()
+# db = client.contractor
 items = db.items
 
 

@@ -35,9 +35,9 @@ def add_item():
 def items_new():
     return render_template('items_new.html', item={}, title='New Item')
 
-# @app.route('/items')
-# def store_items():
-#     return render_template('items.html', items=items.find())
+@app.route('/items')
+def store_items():
+    return render_template('items.html', items=items.find())
 
 @app.route('/items/<item_id>')
 def item(item_id):

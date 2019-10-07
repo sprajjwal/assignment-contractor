@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- <a href="/items/new"> New Item</a> -->
-<!-- 
-<div class = "row">
+<a href="/items/new"> <h3>New Item</h3></a> 
+<br />&nbsp;<br />
+<div class = "row">  
     {% for item in items %}
         <div class = "card">
             <h2><a href='/items/{{ item._id }}'>{{ item.name }}</a></h2>
-            <small>{{ item.price }}</small>
+            <small style="align-self: right">${{ item.price }}</small>
         </div>
     {% endfor %}
-</div> -->
+</div>
 
 {% endblock %}

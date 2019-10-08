@@ -5,12 +5,12 @@
 <br />&nbsp;<br />
 <div class = "row">  
     {% for item in items %}
-        <div class = "card" style="margin-bottom:5vh; width: 30%;">
+        <div class = "card" style="margin:1vh; padding:20px; width: 30%; justify-content: center; display: flex;">
             <div class="images" style="display:flex; justify-content: center">
                 <img style="height: 20vh"  src="{{ item.images[0] }}">
             </div>
-            <h2><a href='/items/{{ item._id }}'>{{ item.display_name }}</a></h2>
-            <small style="align-self: right">${{ item.price }}</small>
+            <h2 style="font-size: 200%"><a href='/items/{{ item._id }}'>{{ item.display_name }}</a></h2>
+            <h6 style="align-self: right">${{ item.price }}</h6>
         </div>
     {% endfor %}
 </div>

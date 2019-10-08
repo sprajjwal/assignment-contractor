@@ -18,7 +18,14 @@ app = Flask(__name__)
 @app.route('/')
 def items_index():
     """Show all items."""
-    return render_template('store_index.html', items=items.find())
+    query = request.args.get('searchbar')
+    if not query:
+        item_list=items.find().sort("name") #how to sort by name?
+
+    else:
+        item_list = items.find({"name": {'$regex': ".*"+ query.lower() +".*" }}).sort("name")
+    return render_template('store_index.html', items=item_list)
+
 
 @app.route('/items', methods=['POST'])
 def add_item():
@@ -33,14 +40,6 @@ def add_item():
     print(item['name'])
     item_id = items.insert_one(item).inserted_id
     return redirect(url_for('item', item_id=item_id))
-
-@app.route('/items_search')
-def items_search():
-    """ Logic for searchbar """
-    query = request.args.get('searchbar')
-    searched_items = items.find({"name": {'$regex': ".*"+ query.lower() +".*" }})
-    return render_template('items_search.html', items=searched_items)
-    # return redirect(url_for('store_index', items=searched_items))
 
 @app.route('/items/new')
 def items_new():
@@ -70,7 +69,7 @@ def item_update(item_id):
     return redirect(url_for('item', item_id=item_id))
 
 @app.route('/items/<item_id>/edit')
-def playlists_edit(item_id):
+def item_edit(item_id):
     """Show the edit form for an item."""
     item = items.find_one({'_id': ObjectId(item_id)})
     return render_template('item_edit.html', item=item, title='Edit Item')

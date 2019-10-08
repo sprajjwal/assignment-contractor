@@ -5,10 +5,10 @@
 <br />&nbsp;<br />
 <div class = "row">  
     {% for item in items %}
-        <div class = "card" style="margin:5vw">
+        <div class = "card" style="margin-bottom:5vh; width: 30%">
             <div class="images" style="display: flex; flex-direction: row">
                 {% for img in item.images %}
-                    <img height="100px" width="70px" src="{{ img }}">
+                    <img height="100px"  src="{{ img }}">
                 {% endfor %}
             </div>
             <h2><a href='/items/{{ item._id }}'>{{ item.display_name }}</a></h2>

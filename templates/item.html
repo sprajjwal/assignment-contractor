@@ -4,11 +4,13 @@
 <div class="row">
     <div class="col-sm-6 col-offset-3">
         <h1> {{ item.display_name }}</h1>
-        {% for img in item.images %}
-            <div class="card"><div class="card-body">
-                <img width="400" height="400" src="{{ img }}">
-            </div></div>
-        {% endfor %}
+        <div class="card" style="display: flex; flex-direction: row; ">
+            {% for img in item.images %}
+                <div class="card-body">
+                    <img width="100%" src="{{ img }}" style="display: block">
+                </div>
+            {% endfor %}
+        </div>
         <h3> Price: {{ item.price }}</h3>
         <h3> In stock: {{ item.in_stock }}</h3>
         <p><a href='/items/{{ item._id }}/edit'>Edit</a></p>

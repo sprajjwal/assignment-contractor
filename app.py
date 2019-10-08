@@ -34,7 +34,7 @@ def add_item():
         'name': request.form.get('name').lower(),
         'display_name': request.form.get('display_name'),
         'price': request.form.get('price'),
-        'in_stock': request.form.get('in'),
+        'in_stock': request.form.get('in_stock'),
         'images': request.form.get('images').split()
     }
     print(item['name'])
@@ -59,7 +59,7 @@ def item_update(item_id):
         'name': request.form.get('name').lower(),
         'display_name': request.form.get('display_name'),
         'price': request.form.get('price'),
-        'in_stock': request.form.get('in'),
+        'in_stock': request.form.get('in_stock'),
         'images': request.form.get('images').split()
     }
     items.update_one(

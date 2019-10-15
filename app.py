@@ -14,7 +14,6 @@ items = db.items
 
 
 app = Flask(__name__)
-
 @app.route('/')
 def items_index():
     """Show all items."""
@@ -23,7 +22,8 @@ def items_index():
         item_list=items.find().sort("name") #how to sort by name?
 
     else:
-        item_list = items.find({"name": {'$regex': ".*"+ query.lower() +".*" }}).sort("name")
+        item_list = items.find({"name": {'$regex': ".*"+ query.lower() +
+        ".*" }}).sort("name")
     return render_template('store_index.html', items=item_list)
 
 
@@ -80,6 +80,7 @@ def items_delete(item_id):
     """Delete one playlist."""
     items.delete_one({'_id': ObjectId(item_id)})
     return redirect(url_for('items_index'))
+
 
 if __name__ == '__main__':
     # items.delete_many({})
